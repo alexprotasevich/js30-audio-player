@@ -1,1 +1,62 @@
 /* style */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* wrapper */
+
+.wrapper {
+    background:
+        radial-gradient(ellipse farthest-corner at right bottom, #fedb37 0%, #FDB931 8%, #9f7928 30%, #8a6e2f 40%, transparent 80%),
+        radial-gradient(ellipse farthest-corner at left top, #ffffff 0%, #ffffac 8%, #d1b464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+/* header */
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+h1 {
+    font-size: 45px;
+    color: rgb(56, 55, 55);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* footer */
+
+.footer {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.footer a {
+    font-size: 20px;
+    text-decoration: none;
+    color: rgb(56, 55, 55);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    color: red;
+}
+
+.time {
+    font-size: 20px;
+    color: rgb(56, 55, 55);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* player */
