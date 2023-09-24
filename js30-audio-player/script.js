@@ -1,60 +1,50 @@
-const dataMusic = [
+const DATA_MUSIC = [
     {
-        id: 1,
         artist: "Linkin Park",
         track: "In the End",
         cover: "cover1",
     },
     {
-        id: 1,
         artist: "Limp Bizkit",
         track: "Break Stuff",
         cover: "cover2",
     },
     {
-        id: 3,
         artist: "Linkin Park",
         track: "Numb",
         cover: "cover3",
     },
     {
-        id: 4,
         artist: "Limp Bizkit",
         track: "Behind Blue Eyes",
         cover: "cover4",
     },
     {
-        id: 5,
         artist: "Linkin Park",
         track: "A Light That Never",
         cover: "cover5",
     },
     {
-        id: 6,
         artist: "Limp Bizkit",
         track: "Red Light - Green Light",
         cover: "cover6",
     },
     {
-        id: 7,
         artist: "Linkin Park",
         track: "What I've Done",
         cover: "cover7",
     },
     {
-        id: 8,
         artist: "Limp Bizkit",
         track: "Getcha Groove On",
         cover: "cover8",
     },
     {
-        id: 9,
         artist: "Linkin Park",
         track: "The Catalyst",
         cover: "cover9",
     },
     {
-        id: 10,
         artist: "Linkin Park",
         track: "Talking to Myself",
         cover: "cover10",
@@ -74,17 +64,34 @@ const nameArtist = document.getElementById('song-artist');
 const nameSong = document.getElementById('song-name');
 const timeCurrent = document.getElementById('time-current');
 const timeTotal = document.getElementById('time-total');
+let indexSongs;
 
-// const duration = audio.duration;
-// const currentTime = audio.currentTime;
+init();
 
+function init() {
+    indexSongs = randomInteger(0, DATA_MUSIC.length -1);
+    loadingSongs(DATA_MUSIC[indexSongs]);
+
+    buttonPlay.addEventListener('click', () => {
+        const isPause = player.classList.contains('play');
+        if (isPause) {
+            pause();
+        } else {
+            play();
+        };
+    });
+
+    buttonNext.addEventListener('click', next);
+    buttonPrevious.addEventListener('click', previous);
+    audio.addEventListener('timeupdate', updateProgressLine);
+    progressBar.addEventListener('click', rewind);
+    audio.addEventListener('loadedmetadata', timeTrack);
+};
 
 function randomInteger(min, max) {
     let random = min + Math.random() * (max + 1 - min);
     return Math.floor(random);
-  }
-
-let indexSongs = randomInteger(0, dataMusic.length -1);
+};
 
 function loadingSongs(song) {
     audio.src = `assets/music/${song.track}.mp3`;
@@ -93,12 +100,11 @@ function loadingSongs(song) {
     nameSong.innerHTML = song.track;
 };
 
-loadingSongs(dataMusic[indexSongs]);
-
 function play() {
     player.classList.add('play');
     audio.play();
     playOrPauseIcon.src = 'assets/icon/pause.png';
+
 };
 
 function pause() {
@@ -107,56 +113,52 @@ function pause() {
     playOrPauseIcon.src = 'assets/icon/play.png';
 };
 
-buttonPlay.addEventListener('click', () => {
-    const playOrPauseStatus = player.classList.contains('play');
-    if (playOrPauseStatus) {
-        pause();
-    } else {
-        play();
-    }
-});
-
 function next() {
     indexSongs++;
-    if (indexSongs > dataMusic.length -1) {
+    if (indexSongs > DATA_MUSIC.length -1) {
         indexSongs = 0;
     };
 
-    loadingSongs(dataMusic[indexSongs]);
+    loadingSongs(DATA_MUSIC[indexSongs]);
     play();
 };
-
-buttonNext.addEventListener('click', next);
 
 function previous() {
     indexSongs--;
     if (indexSongs < 0) {
-        indexSongs = dataMusic.length -1;
+        indexSongs = DATA_MUSIC.length -1;
     }
 
-    loadingSongs(dataMusic[indexSongs]);
+    loadingSongs(DATA_MUSIC[indexSongs]);
     play();
 };
-
-buttonPrevious.addEventListener('click', previous);
 
 function updateProgressLine() {
     const duration = audio.duration;
     const currentTime = audio.currentTime;
     const percentProgress = (currentTime / duration) * 100;
     progressLine.style.width = `${percentProgress}%`;
-}
-
-audio.addEventListener('timeupdate', updateProgressLine);
+    timeCurrent.innerHTML = formatTimeDuration(currentTime);
+};
 
 function rewind(e) {
     const widthProgressBar = this.clientWidth;
     const positionClick = e.offsetX;
-    // const positionClick = progressLine.offsetX;
     const duration = audio.duration;
-
     audio.currentTime = (positionClick / widthProgressBar) * duration;
+};
 
-}
+function timeTrack() {
+    const duration = audio.duration;
+    timeTotal.innerHTML = formatTimeDuration(duration);
+};
 
-progressBar.addEventListener('click', rewind);
+function formatTime(time) {
+    return time < 10 ? `0${time}` : time
+};
+
+function formatTimeDuration(time) {
+    const minutes = formatTime(Math.floor(time / 60));
+    const seconds = formatTime(Math.floor(time - minutes * 60));
+    return `${minutes}:${seconds}`;
+};
