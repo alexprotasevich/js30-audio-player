@@ -59,22 +59,22 @@ const dataMusic = [
         track: "Talking to Myself",
         cover: "cover10",
     }
-]
+];
 
 const player = document.getElementById('player');
 const audio = document.getElementById('audio');
 const coverImage = document.getElementById('cover-img');
 const buttonPlay = document.getElementById('btn-play');
-const playOrPause = document.getElementById('play-or-pause');
+const playOrPauseIcon = document.getElementById('play-or-pause');
 const buttonPrevious = document.getElementById('btn-prev');
 const buttonNext = document.getElementById('btn-next');
 const progressBar = document.getElementById('progress-bar');
 const progressLine = document.getElementById('progress-line');
 const nameArtist = document.getElementById('song-artist');
 const nameSong = document.getElementById('song-name');
-
 const timeCurrent = document.getElementById('time-current');
 const timeTotal = document.getElementById('time-total');
+
 
 
 let indexSongs = 0;
@@ -84,6 +84,51 @@ function loadingSongs(song) {
     coverImage.src = `assets/image_album/${song.cover}.jpeg`;
     nameArtist.innerHTML = song.artist;
     nameSong.innerHTML = song.track;
-}
+};
 
 loadingSongs(dataMusic[indexSongs]);
+
+function play() {
+    player.classList.add('play');
+    audio.play();
+    playOrPauseIcon.src = 'assets/icon/pause.png';
+};
+
+function pause() {
+    player.classList.remove('play');
+    audio.pause();
+    playOrPauseIcon.src = 'assets/icon/play.png';
+};
+
+buttonPlay.addEventListener('click', () => {
+    const playOrPauseStatus = player.classList.contains('play');
+    if (playOrPauseStatus) {
+        pause();
+    } else {
+        play();
+    }
+});
+
+function next() {
+    indexSongs++;
+    if (indexSongs > dataMusic.length -1) {
+        indexSongs = 0;
+    };
+
+    loadingSongs(dataMusic[indexSongs]);
+    play();
+};
+
+buttonNext.addEventListener('click', next);
+
+function previous() {
+    indexSongs--;
+    if (indexSongs < 0) {
+        indexSongs = dataMusic.length -1;
+    }
+
+    loadingSongs(dataMusic[indexSongs]);
+    play();
+};
+
+buttonPrevious.addEventListener('click', previous);
