@@ -75,9 +75,16 @@ const nameSong = document.getElementById('song-name');
 const timeCurrent = document.getElementById('time-current');
 const timeTotal = document.getElementById('time-total');
 
+// const duration = audio.duration;
+// const currentTime = audio.currentTime;
 
 
-let indexSongs = 0;
+function randomInteger(min, max) {
+    let random = min + Math.random() * (max + 1 - min);
+    return Math.floor(random);
+  }
+
+let indexSongs = randomInteger(0, dataMusic.length -1);
 
 function loadingSongs(song) {
     audio.src = `assets/music/${song.track}.mp3`;
@@ -132,3 +139,24 @@ function previous() {
 };
 
 buttonPrevious.addEventListener('click', previous);
+
+function updateProgressLine() {
+    const duration = audio.duration;
+    const currentTime = audio.currentTime;
+    const percentProgress = (currentTime / duration) * 100;
+    progressLine.style.width = `${percentProgress}%`;
+}
+
+audio.addEventListener('timeupdate', updateProgressLine);
+
+function rewind(e) {
+    const widthProgressBar = this.clientWidth;
+    const positionClick = e.offsetX;
+    // const positionClick = progressLine.offsetX;
+    const duration = audio.duration;
+
+    audio.currentTime = (positionClick / widthProgressBar) * duration;
+
+}
+
+progressBar.addEventListener('click', rewind);
