@@ -88,10 +88,14 @@ function init() {
     audio.addEventListener('loadedmetadata', timeTrack);
 };
 
+//random number song while loading
+
 function randomInteger(min, max) {
     let random = min + Math.random() * (max + 1 - min);
     return Math.floor(random);
 };
+
+//init song
 
 function loadingSongs(song) {
     audio.src = `assets/music/${song.track}.mp3`;
@@ -100,6 +104,8 @@ function loadingSongs(song) {
     nameSong.innerHTML = song.track;
 };
 
+//play song
+
 function play() {
     player.classList.add('play');
     audio.play();
@@ -107,11 +113,15 @@ function play() {
 
 };
 
+//pause song
+
 function pause() {
     player.classList.remove('play');
     audio.pause();
     playOrPauseIcon.src = 'assets/icon/play.png';
 };
+
+//next song
 
 function next() {
     indexSongs++;
@@ -123,6 +133,8 @@ function next() {
     play();
 };
 
+//previous song
+
 function previous() {
     indexSongs--;
     if (indexSongs < 0) {
@@ -133,6 +145,8 @@ function previous() {
     play();
 };
 
+//update progress bar while playing a song
+
 function updateProgressLine() {
     const duration = audio.duration;
     const currentTime = audio.currentTime;
@@ -141,6 +155,8 @@ function updateProgressLine() {
     timeCurrent.innerHTML = formatTimeDuration(currentTime);
 };
 
+//rewind progress bar while playing or paused a song
+
 function rewind(e) {
     const widthProgressBar = this.clientWidth;
     const positionClick = e.offsetX;
@@ -148,10 +164,14 @@ function rewind(e) {
     audio.currentTime = (positionClick / widthProgressBar) * duration;
 };
 
+//song duration calculation
+
 function timeTrack() {
     const duration = audio.duration;
     timeTotal.innerHTML = formatTimeDuration(duration);
 };
+
+//formatting time in format 00:00
 
 function formatTime(time) {
     return time < 10 ? `0${time}` : time
