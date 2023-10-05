@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js30-audio-player</title>
+    <link rel='stylesheet' href="assets/style/normalize.css">
+    <link rel='stylesheet' href="assets/style/style.css">
+    <link rel="icon" href="assets/icon/favicon_player.png" type="image/png">
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <h1 class="title-h1">js30#1.2-audio-player</h1>
+        </header>
+        <div class="player-wrapper" id="player">
+            <div class="cover">
+                <img id="cover-img" class="cover-img" src="assets/image_album/cover1.jpeg" alt="cover">
+            </div>
+            <div class="song-artist" id="song-artist">NameArtist</div>
+            <div class="song-name" id="song-name">NameSong</div>
+            <div class="time-wrapper">
+                <div class="time-current" id="time-current">00:00</div>
+                <div class="time-total" id="time-total">00:00</div>
+            </div>
+            <div class="progress-bar" id="progress-bar">
+                <div class="progress" id="progress-line"></div>
+            </div>
+            <div class="buttons">
+                <div class="btn-prev" id="btn-prev">
+                    <img src="assets/icon/prev.png" class="prev" alt="prev">
+                </div>
+                <div class="btn-play" id="btn-play">
+                    <img src="assets/icon/play.png" id="play-or-pause" class="play" alt="play">
+                </div>
+                <div class="btn-next" id="btn-next">
+                    <img src="assets/icon/next.png" class="next" alt="next">
+                </div>
+            </div>
+            <audio id="audio" src="assets/music/In the End.mp3"></audio>
+        </div>
+        <footer class="footer">
+            <time datetime="2023-09-24" class="time">2023</time>
+            <a href="https://github.com/alexprotasevich" target="_blank">My GitHub</a>
+            <a href="https://rs.school/" class="rslogo" target="_blank"><img class="rslogo-img" src="assets/icon/rs_school_js.svg" alt="Logo RS School"></a>
+            <a href="https://rs.school/js-stage0/" target="_blank">RS School</a>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
